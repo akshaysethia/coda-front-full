@@ -20,10 +20,15 @@ import { CandProfileComponent } from './cand-profile/cand-profile.component';
 import { VoteComponent } from './vote/vote.component';
 
 import { AuthGuardService } from './services/auth-guard.service';
-import { AuthInterceptor } from './services/auth.interceptor';
+import {
+  AuthInterceptor,
+  UnauthorizedInterceptor,
+} from './services/auth.interceptor';
 import { AuthService } from './services/auth.service';
 import { DataService } from './services/data.service';
 import { ErrorProcessorService } from './services/error-processor.service';
+
+import { baseURL } from './shared/baseurl';
 
 @NgModule({
   declarations: [
@@ -56,9 +61,15 @@ import { ErrorProcessorService } from './services/error-processor.service';
       useClass: AuthInterceptor,
       multi: true,
     },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: UnauthorizedInterceptor,
+      multi: true,
+    },
     AuthService,
     DataService,
     ErrorProcessorService,
+    { provide: 'baseURL', useValue: baseURL },
   ],
   entryComponents: [VoteComponent, AdminDelComponent, AdminEditComponent],
   bootstrap: [AppComponent],

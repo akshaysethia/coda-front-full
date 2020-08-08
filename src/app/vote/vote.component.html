@@ -1,1 +1,71 @@
-<p>vote works!</p>
+<div class="modal-header bg-dark text-light">
+  <h4 class="modal-title" id="modal-basic-title">Cast Your Vote</h4>
+  <button type="button" class="close" (click)="modal.dismiss('Cross click')">
+    <span style="color: white;">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form
+    novalidate
+    [formGroup]="voteForm"
+    #votForm="ngForm"
+    (ngSubmit)="onSubmit()"
+    class="text-dark"
+  >
+    <div class="form-group my-2">
+      <label for="name">Name</label>
+      <input
+        class="form-control"
+        type="text"
+        name="name"
+        id="name"
+        formControlName="name"
+        placeholder="John Doe"
+        required
+      />
+      <div class="alert alert-danger my-3" role="alert" *ngIf="formErrors.name">
+        {{ formErrors.name }}
+      </div>
+    </div>
+    <div class="form-group my-2">
+      <label for="email">Email</label>
+      <input
+        class="form-control"
+        type="email"
+        name="email"
+        id="email"
+        formControlName="email"
+        placeholder="JohnDoe@Xyz.com"
+        required
+        email
+      />
+      <div
+        class="alert alert-danger my-3"
+        role="alert"
+        *ngIf="formErrors.email"
+      >
+        {{ formErrors.email }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-right">
+        <button
+          type="submit"
+          class="btn btn-outline-success mt-2"
+          [disabled]="voteForm.invalid"
+        >
+          Vote
+        </button>
+      </div>
+      <div class="col text-left">
+        <button
+          type="button"
+          class="btn btn-outline-danger mt-2"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

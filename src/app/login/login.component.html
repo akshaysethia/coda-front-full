@@ -1,1 +1,88 @@
-<p>login works!</p>
+<div class="container-fluid">
+  <div class="jumbotron bg-dark text-center mx-3">
+    <div class="container">
+      <h1 class="display-3">Login</h1>
+      <br />
+      <p class="lead">Candidate Login Page</p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row my-5" *ngIf="errMsg">
+    <div class="col-12 text-center">
+      <div class="alert alert-dark" role="alert">
+        {{ errMsg }}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="loader">
+    <div class="col-12 text-center">
+      <div
+        class="spinner-border text-dark"
+        role="status"
+        style="height: 70px; width: 70px;"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5" *ngIf="!loader">
+    <div class="col-12 text-center text-dark">
+      <form
+        class="p-3"
+        novalidate
+        (ngSubmit)="onSubmit()"
+        #loginForm="ngForm"
+        style="border: 2px solid black; border-radius: 20px;"
+      >
+        <div class="form-group">
+          <label for="username">Email</label>
+          <input
+            class="form-control my-2"
+            name="email"
+            type="text"
+            id="email"
+            [(ngModel)]="user.email"
+            placeholder="johndoe@xyz.com"
+            #email="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="email.errors?.required && email?.touched"
+          >
+            Username is required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            class="form-control my-2"
+            name="password"
+            type="password"
+            id="password"
+            [(ngModel)]="user.password"
+            placeholder="JohnDoe123"
+            #password="ngModel"
+            required
+          />
+          <div
+            class="alert alert-danger"
+            *ngIf="password.errors?.required && password?.touched"
+          >
+            Password is required
+          </div>
+        </div>
+        <br />
+        <button
+          type="submit"
+          class="btn btn-outline-danger"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

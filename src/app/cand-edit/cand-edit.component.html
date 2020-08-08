@@ -1,1 +1,197 @@
-<p>cand-edit works!</p>
+<div class="container-fluid">
+  <div class="jumbotron bg-dark text-center">
+    <div class="container">
+      <h1 class="display-4">Edit Candidate</h1>
+      <p>
+        Candidate Can Edit Their Profile Here!
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row" *ngIf="!candidate || loader">
+    <div class="col-12 text-center">
+      <div
+        class="spinner-border text-dark"
+        role="status"
+        style="height: 70px; width: 70px;"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5" *ngIf="errMsg">
+    <div class="col-12 text-center">
+      <div class="alert alert-danger" role="alert">
+        {{ errMsg }}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="candidate && expertinArray && !loader">
+    <div class="col-12 text-center text-dark">
+      <form
+        #editForm="ngForm"
+        class="p-3"
+        style="border: 2px solid black; border-radius: 20px;"
+      >
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            [(ngModel)]="candidate.name"
+            #name="ngModel"
+          />
+          <div
+            *ngIf="
+              name.invalid &&
+              (name.dirty || name.touched) &&
+              name.errors?.required
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            Name is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Email">Email</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            [(ngModel)]="candidate.email"
+            #email="ngModel"
+          />
+          <div
+            *ngIf="
+              email.invalid &&
+              (email.dirty || email.touched) &&
+              email.errors?.required
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            Email is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="challenges">Challenges</label>
+          <input
+            type="number"
+            class="form-control"
+            id="challenges"
+            name="challenges"
+            [(ngModel)]="candidate.challenges"
+            #challenges="ngModel"
+            min="0"
+          />
+          <div
+            *ngIf="
+              challenges.invalid &&
+              (challenges.dirty || challenges.touched) &&
+              challenges.errors?.required
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            Challenges is Required
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="expertiselvl">Expertise Level [ 1 - 5 ]</label>
+          <input
+            type="number"
+            class="form-control"
+            id="expertiselvl"
+            name="expertiselvl"
+            [(ngModel)]="candidate.expertiselvl"
+            #expertiselvl="ngModel"
+            max="5"
+            (keyup)="checkValue()"
+          />
+          <div
+            *ngIf="
+              expertiselvl.invalid &&
+              (expertiselvl.dirty || expertiselvl.touched) &&
+              expertiselvl.errors.required
+            "
+            class="alert alert-danger"
+            role="alert"
+          >
+            Expertise lvl is Required
+          </div>
+        </div>
+        <div class="row my-4 text-center">
+          <div class="col-12">
+            <button
+              type="button"
+              (click)="addExpert()"
+              class="btn btn-outline-success mx-3"
+            >
+              Add Expert In
+            </button>
+          </div>
+        </div>
+        <div
+          class="form-row my-3"
+          *ngFor="let item of expertinArray; let i = index"
+        >
+          <div class="col">
+            <input
+              type="text"
+              id="lang"
+              name="lang_{{ i }}"
+              class="form-control"
+              placeholder="Language"
+              [(ngModel)]="item.lang"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="number"
+              id="rating"
+              name="rating_{{ i }}"
+              class="form-control"
+              placeholder="Rating"
+              [(ngModel)]="item.rating"
+              (keyup)="checkValue()"
+            />
+          </div>
+          <div class="col">
+            <button
+              type="button"
+              (click)="removeExpert(i)"
+              class="btn btn-outline-danger mx-3"
+            >
+              Remove
+            </button>
+          </div>
+        </div>
+        <div class="row my-3">
+          <div class="col-12 text-center">
+            <button
+              type="submit"
+              class="btn btn-outline-dark mx-3"
+              (click)="onSubmit()"
+              [disabled]="editForm.form.invalid"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-danger mx-3"
+              (click)="goBack()"
+            >
+              Go Back
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

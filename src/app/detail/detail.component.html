@@ -1,1 +1,91 @@
-<p>detail works!</p>
+<div class="container-fluid">
+  <div class="jumbotron bg-dark text-center">
+    <div class="container">
+      <h1 class="display-4">Candidate Details</h1>
+      <p>
+        Get a Glance at your Vote !
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row my-5" *ngIf="errMsg">
+    <div class="col-12 text-center">
+      <div class="alert alert-dark" role="alert">
+        {{ errMsg }}
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!candidate">
+    <div class="col-12 text-center text-dark">
+      <div
+        class="spinner-border"
+        role="status"
+        style="height: 70px; width: 70px;"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row text-dark" *ngIf="candidate">
+    <div class="col-sm-12 col-md-6 text-center my-3">
+      <img
+        src="../../assets/images/hacker.png"
+        alt="Profile"
+        class="img-fluid"
+      />
+    </div>
+    <div class="col-sm-12 col-md-6 text-center my-3">
+      <h5 class="lead" style="opacity: 0.6;">Name</h5>
+      <h4 style="font-size: 40px;">{{ candidate.name }}</h4>
+      <hr />
+      <h5 class="lead" style="opacity: 0.6;">Email</h5>
+      <h4>{{ candidate.email }}</h4>
+      <hr />
+      <h5 class="lead" style="opacity: 0.6;">Votes</h5>
+      <h4>{{ candidate.votes }}</h4>
+      <hr />
+      <h5 class="lead" style="opacity: 0.6;">Challenges Completed</h5>
+      <h4>{{ candidate.challenges }}</h4>
+      <hr />
+      <h5 class="lead" style="opacity: 0.6;">Expertise Level</h5>
+      <h4>{{ candidate.expertiselvl }}</h4>
+      <hr />
+      <h5 class="lead" style="opacity: 0.6;">Expert In</h5>
+      <h4 *ngIf="candidate.expertin.length == 0">None</h4>
+      <h4 *ngFor="let exp of candidate.expertin">
+        {{ exp.lang }} : {{ exp.rating }}
+      </h4>
+    </div>
+  </div>
+  <div class="row my-4" *ngIf="candidate">
+    <div class="col-sm-12 col-md-6 col-lg-4 my-3 text-center">
+      <button
+        type="button"
+        class="btn btn-outline-success mx-auto"
+        (click)="voteModal(candidate._id)"
+      >
+        Vote For {{ candidate.name }}
+      </button>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 my-3 text-center">
+      <button
+        type="button"
+        class="btn btn-outline-danger mx-auto"
+        (click)="delete(candidate._id)"
+      >
+        Remove {{ candidate.name }}
+      </button>
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-4 my-3 text-center">
+      <button
+        type="button"
+        class="btn btn-outline-warning mx-auto"
+        (click)="edit(candidate)"
+      >
+        Edit {{ candidate.name }}
+      </button>
+    </div>
+  </div>
+</div>

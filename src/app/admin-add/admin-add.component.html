@@ -1,1 +1,119 @@
-<p>admin-add works!</p>
+<div class="container-fluid">
+  <div class="jumbotron bg-dark text-center">
+    <div class="container">
+      <h1 class="display-4">Candidate Details</h1>
+      <p>
+        Get a Glance at your Vote !
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row my-5" *ngIf="errMsg">
+    <div class="col-12 text-center">
+      <div class="alert alert-dark" role="alert">
+        {{ errMsg }}
+      </div>
+    </div>
+  </div>
+  <div class="row my-5 text-center" *ngIf="loader">
+    <div class="col-12">
+      <div
+        class="spinner-border text-dark"
+        role="status"
+        style="height: 75px; width: 75px;"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row my-5" *ngIf="!loader">
+    <div class="col-12 text-center">
+      <form
+        novalidate
+        [formGroup]="addCand"
+        #addCandidate="ngForm"
+        (ngSubmit)="onSubmit()"
+        class="p-3 text-dark"
+        style="border: 2px solid black; border-radius: 20px;"
+      >
+        <div class="form-group">
+          <label for="admin">Admin Code</label>
+          <input
+            type="text"
+            class="form-control"
+            id="admin"
+            name="admin"
+            formControlName="admin"
+          />
+          <div
+            class="alert alert-danger my-3"
+            role="alert"
+            *ngIf="formErrors.admin"
+          >
+            {{ formErrors.admin }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            name="name"
+            formControlName="name"
+          />
+          <div
+            class="alert alert-danger my-3"
+            role="alert"
+            *ngIf="formErrors.name"
+          >
+            {{ formErrors.name }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input
+            type="email"
+            class="form-control"
+            id="email"
+            name="email"
+            formControlName="email"
+          />
+          <div
+            class="alert alert-danger my-3"
+            role="alert"
+            *ngIf="formErrors.email"
+          >
+            {{ formErrors.email }}
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input
+            type="password"
+            class="form-control"
+            id="password"
+            name="password"
+            formControlName="password"
+          />
+          <div
+            class="alert alert-danger my-3"
+            role="alert"
+            *ngIf="formErrors.password"
+          >
+            {{ formErrors.password }}
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          [disabled]="addCand.invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

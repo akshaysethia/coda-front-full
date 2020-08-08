@@ -1,0 +1,16 @@
+.nav-link,
+.navbar-brand {
+  font-size: 30px !important;
+  color: black !important;
+}
+
+.nav-link:hover {
+  transform: scale(1.5, 1.5) !important;
+  color: blue !important;
+}
+
+@media (hover: none) {
+  .nav-link:hover {
+    transform: none !important;
+  }
+}

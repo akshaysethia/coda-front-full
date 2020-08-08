@@ -4,6 +4,7 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';

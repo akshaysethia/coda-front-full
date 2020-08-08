@@ -1,1 +1,206 @@
-<p>admin-edit works!</p>
+<div class="modal-header bg-dark text-light">
+  <h4 class="modal-title" id="modal-basic-title">Edit Candidate (Admin)</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row" *ngIf="loader">
+      <div class="col-12 text-center text-dark">
+        <div
+          class="spinner-border"
+          role="status"
+          style="height: 70px; width: 70px;"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!loader">
+      <div class="col-12">
+        <form novalidate #adminForm="ngForm" class="p-3 text-dark">
+          <div class="form-group">
+            <label for="admin">Admin Code</label>
+            <input
+              type="text"
+              class="form-control"
+              id="admin"
+              name="admin"
+              [(ngModel)]="candidate.admin"
+              #admin="ngModel"
+            />
+            <div
+              *ngIf="
+                admin.invalid &&
+                (admin.dirty || admin.touched) &&
+                admin.errors?.required
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Admin is Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              [(ngModel)]="candidate.name"
+              #name="ngModel"
+            />
+            <div
+              *ngIf="
+                name.invalid &&
+                (name.dirty || name.touched) &&
+                name.errors?.required
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Name is Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="Email">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              id="email"
+              name="email"
+              [(ngModel)]="candidate.email"
+              #email="ngModel"
+            />
+            <div
+              *ngIf="
+                email.invalid &&
+                (email.dirty || email.touched) &&
+                email.errors?.required
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Email is Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="challenges">Challenges</label>
+            <input
+              type="number"
+              class="form-control"
+              id="challenges"
+              name="challenges"
+              [(ngModel)]="candidate.challenges"
+              #challenges="ngModel"
+              min="0"
+            />
+            <div
+              *ngIf="
+                challenges.invalid &&
+                (challenges.dirty || challenges.touched) &&
+                challenges.errors?.required
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Challenges is Required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="expertiselvl">Expertise Level [ 1 - 5 ]</label>
+            <input
+              type="number"
+              class="form-control"
+              id="expertiselvl"
+              name="expertiselvl"
+              [(ngModel)]="candidate.expertiselvl"
+              #expertiselvl="ngModel"
+              min="1"
+              max="5"
+              (keyup)="checkValue()"
+            />
+            <div
+              *ngIf="
+                expertiselvl.invalid &&
+                (expertiselvl.dirty || expertiselvl.touched) &&
+                expertiselvl.errors?.required
+              "
+              class="alert alert-danger"
+              role="alert"
+            >
+              Expertise lvl is Required
+            </div>
+          </div>
+          <div class="row my-4 text-center">
+            <div class="col-12">
+              <button
+                type="button"
+                (click)="addExpert()"
+                class="btn btn-outline-success mx-3"
+              >
+                Add Expert In
+              </button>
+            </div>
+          </div>
+          <div
+            class="form-row my-3"
+            *ngFor="let item of expertinArray; let i = index"
+          >
+            <div class="col">
+              <input
+                type="text"
+                id="lang"
+                name="lang_{{ i }}"
+                class="form-control"
+                placeholder="Language"
+                [(ngModel)]="item.lang"
+              />
+            </div>
+            <div class="col">
+              <input
+                type="number"
+                id="rating"
+                name="rating_{{ i }}"
+                class="form-control"
+                placeholder="Rating"
+                min="1"
+                max="5"
+                (keyup)="checkValue()"
+                [(ngModel)]="item.rating"
+              />
+            </div>
+            <div class="col">
+              <button
+                type="button"
+                (click)="removeExpert(i)"
+                class="btn btn-outline-danger mx-3"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
+          <div class="row my-3">
+            <div class="col-12 text-center">
+              <button
+                type="submit"
+                class="btn btn-outline-dark mx-3"
+                (click)="onSubmit()"
+                [disabled]="adminForm.invalid && admin.invalid"
+              >
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

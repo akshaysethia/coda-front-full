@@ -1,1 +1,62 @@
-<p>home works!</p>
+<div class="container-fluid">
+  <div class="jumbotron bg-dark text-center">
+    <div class="container">
+      <h1 class="display-4">Welcome To The Hacker World</h1>
+      <p>
+        Vote For a Candidate, or <br />
+        better, become one !
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row" *ngIf="!candidates">
+    <div class="col-12 text-center">
+      <div
+        class="spinner-border"
+        role="status"
+        style="height: 10px; width: 10px;"
+      >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="row justify-content-center"
+    *ngIf="candidates && candidates.length == 0"
+  >
+    <div class="col-12 text-center">
+      <div class="alert alert-dark" role="alert">
+        No Candidates Available yet, join now !
+      </div>
+    </div>
+  </div>
+  <div class="row text-center justify-content-center" *ngIf="candidates">
+    <div
+      class="col-sm-12 col-md-6 col-lg-4 text-center my-3"
+      *ngFor="let cand of candidates"
+    >
+      <div class="card bg-dark text-light">
+        <img
+          src="../../assets/images/hacker.png"
+          class="card-img-top my-4"
+          alt="Profile"
+          style="border-radius: 100%;"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ cand.name }}</h5>
+          <p class="card-text">
+            Total Votes<span class="mx-3">{{ cand.votes }}</span>
+          </p>
+          <a
+            href="#"
+            class="btn btn-outline-light text-center"
+            [routerLink]="['/candidate', cand._id]"
+            >View More</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

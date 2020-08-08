@@ -1,1 +1,50 @@
-<p>admin-del works!</p>
+<div class="modal-header bg-dark text-light">
+  <h4 class="modal-title" id="modal-basic-title">Delete this Candidate</h4>
+  <button
+    type="button"
+    class="close"
+    aria-label="Close"
+    (click)="modal.dismiss('Cross click')"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body text-dark">
+  <div class="container">
+    <div class="row" *ngIf="loader">
+      <div class="col-12 text-center">
+        <div
+          class="spinner-border text-dark"
+          role="status"
+          style="height: 75px; width: 75px;"
+        >
+          <span class="sr-only">Loading...</span>
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="!loader">
+      <div class="col-12">
+        <form novalidate (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="admin">Admin Code</label>
+            <input
+              type="text"
+              class="form-control"
+              id="admin"
+              name="adminCode"
+              [(ngModel)]="adminCode"
+              required
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-danger"
+            [disabled]="adminCode == null"
+          >
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
