@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: MyFont;
+  src: url("./assets/font/Staatliches-Regular.ttf");
+}
 
 body {
+  font-family: MyFont, Helvetica, sans-serif !important;
   background: url("./assets/images/blue-snow.png");
   color: whitesmoke !important;
 }
