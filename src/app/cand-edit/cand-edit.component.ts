@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Candidate } from '../shared/candidate';
-import { ExpertIn } from '../shared/expertIn';
+import { ExpertIn } from '../shared/expertin';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { Location } from '@angular/common';
@@ -16,7 +16,11 @@ export class CandEditComponent implements OnInit {
   errMsg: string = null;
   loader: boolean = false;
 
-  constructor(private dataService: DataService, private router: Router, private location: Location) {}
+  constructor(
+    private dataService: DataService,
+    private router: Router,
+    private location: Location
+  ) {}
 
   ngOnInit(): void {
     this.candidate = this.dataService.cand;

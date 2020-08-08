@@ -1,4 +1,4 @@
-import { ExpertIn } from './expertIn';
+import { ExpertIn } from './expertin';
 
 export class Candidate {
   admin: string = null;

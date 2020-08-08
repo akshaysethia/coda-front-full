@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Candidate } from '../shared/candidate';
-import { ExpertIn } from '../shared/expertIn';
+import { ExpertIn } from '../shared/expertin';
 import { DataService } from '../services/data.service';
 import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
